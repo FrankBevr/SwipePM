@@ -1,23 +1,10 @@
 #![cfg_attr(not(feature = "std"), no_std, no_main)]
-
-#[ink::trait_definition]
-pub trait FootballMatch {
-    #[ink(message)]
-    fn get_game(&self) -> Result<(), ()>;
-
-    #[ink(message)]
-    fn set_winner(&mut self, number: i32) -> Result<(), ()>;
-
-    #[ink(message)]
-    fn set_particpant_chelsea(&mut self) -> Result<(), ()>;
-
-    #[ink(message)]
-    fn set_particpant_manchester(&mut self) -> Result<(), ()>;
-}
+pub mod traits;
 
 #[ink::contract]
 mod football_match {
-    use super::FootballMatch;
+    pub use crate::traits::football_match::FootballMatch;
+
     #[ink(storage)]
     pub struct GameData {
         winner: i32,
@@ -34,6 +21,7 @@ mod football_match {
             }
         }
     }
+
     impl FootballMatch for GameData {
         #[ink(message)]
         fn get_game(&self) -> Result<(), ()> {
