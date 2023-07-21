@@ -7,7 +7,7 @@ mod football_match {
 
     #[ink(storage)]
     pub struct GameData {
-        winner: i32,
+        winner: u8,
         particpant_chelsea: AccountId,
         particpant_manchester: AccountId,
     }
@@ -15,7 +15,7 @@ mod football_match {
         #[ink(constructor)]
         pub fn new() -> Self {
             Self {
-                winner: 0i32,
+                winner: 0u8,
                 particpant_chelsea: Self::env().caller(),
                 particpant_manchester: Self::env().caller(),
             }
@@ -24,14 +24,14 @@ mod football_match {
 
     impl FootballMatch for GameData {
         #[ink(message)]
-        fn get_game(&self) -> Result<(), ()> {
+        fn get_game(&self) -> Result<u8, ()> {
             ink::env::debug_println!("Thast my winer {:?}", self.winner);
             ink::env::debug_println!("Thast my chelsea {:?}", self.particpant_chelsea);
             ink::env::debug_println!("Thast my manchester {:?}", self.particpant_manchester);
-            Ok(())
+            Ok(self.winner)
         }
         #[ink(message)]
-        fn set_winner(&mut self, number: i32) -> Result<(), ()> {
+        fn set_winner(&mut self, number: u8) -> Result<(), ()> {
             self.winner = number;
             ink::env::debug_println!("Now the winner is set. The Winner is {:?}", self.winner);
             Ok(())
