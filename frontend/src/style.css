@@ -16,3 +16,6 @@ body {
 body::-webkit-scrollbar {
   width: 0px;
 }
+#app {
+  height: 100%;
+}
