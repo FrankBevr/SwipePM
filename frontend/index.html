@@ -8,12 +8,30 @@
       rel="stylesheet"
       href="https://cdn.jsdelivr.net/npm/@unocss/reset/normalize.min.css"
     />
+    <script src="https://cdn.jsdelivr.net/npm/@unocss/runtime"></script>
+    <script type="module" src="/src/main.ts"></script>
   </head>
   <body>
     <div id="app">
-      <h1 class="text-stroke-1 text-stroke-black text-bold">Swipe PM</h1>
+      <header
+        class="flex flex-justify-center flex-items-center bg-#FFDF80 b-rd-100 pl-10 pr-10 gap-10"
+      >
+        <img src="/Notifications.svg" alt="notification bell" />
+        <h1 class="flex-1 text-center tracking-tighter">SwipePM</h1>
+        <img src="/Slider.svg" alt="settings" />
+        <img src="/Info.svg" alt="information" />
+      </header>
+      <main>
+        <div>
+          <img src="./public/logo-manchester.png" alt="manchester" />
+          <button type="">PICK</button>
+        </div>
+        <img src="./public/vs.svg" alt="vs" />
+        <div>
+          <img src="./public/logo-chelsea.png" alt="chelsea" />
+          <button type="">PICK</button>
+        </div>
+      </main>
     </div>
-    <script src="https://cdn.jsdelivr.net/npm/@unocss/runtime"></script>
-    <script type="module" src="/src/main.ts"></script>
   </body>
 </html>

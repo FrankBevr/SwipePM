@@ -2,3 +2,17 @@
 * {
   font-family: "Unbounded";
 }
+html,
+body {
+  height: 98%;
+}
+body {
+  background-image: url("/Background.png");
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed;
+}
+body::-webkit-scrollbar {
+  width: 0px;
+}
