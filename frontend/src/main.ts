@@ -1,8 +1,9 @@
 import "./style.css";
+import { createApp, ref } from "vue";
 
-const app = Vue.createApp({
+const app = createApp({
   setup() {
-    const message = Vue.ref("SwipePM");
+    const message = ref("SwipePM");
     return { message };
   },
 });
