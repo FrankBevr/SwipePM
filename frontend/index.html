@@ -9,15 +9,16 @@
       href="https://cdn.jsdelivr.net/npm/@unocss/reset/normalize.min.css"
     />
     <script src="https://cdn.jsdelivr.net/npm/@unocss/runtime"></script>
+    <script src="https://unpkg.com/vue@next"></script>
     <script type="module" src="/src/main.ts"></script>
   </head>
   <body>
-    <div id="app">
+    <div id="app" class="min-w-screen-md min-w-800px">
       <header
-        class="flex flex-items-center bg-#FFDF80 b-rd-100 pl-10 pr-10 gap-10 max-w-screen-xl mx-auto"
+        class="flex flex-1 flex-items-center bg-#FFDF80 b-rd-100 pl-10 pr-10 gap-10 max-w-screen-xl mx-auto"
       >
         <img src="/Notifications.svg" alt="notification bell" />
-        <h1 class="flex-1 text-center tracking-tighter">SwipePM</h1>
+        <h1 class="flex-1 text-center tracking-tighter">{{message}}</h1>
         <img src="/Slider.svg" alt="settings" />
         <img src="/Info.svg" alt="information" />
       </header>
