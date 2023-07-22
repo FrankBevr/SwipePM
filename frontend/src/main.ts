@@ -1,11 +1,7 @@
 import "./style.css";
-import { createApp, ref } from "vue";
+import { createApp } from "vue";
+import Header from "./header.ts";
 
-const app = createApp({
-  setup() {
-    const message = ref("SwipePM");
-    return { message };
-  },
-});
+const app = createApp(Header);
 
 app.mount("#app");
