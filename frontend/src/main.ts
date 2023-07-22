@@ -1,7 +1,7 @@
 import "./style.css";
 import { createApp } from "vue";
-import Header from "./components/header.vue";
-import Duel from "./components/duel.ts";
+import Header from "./components/Header.vue";
+import Duel from "./components/Duel.vue";
 
 const app = createApp({
   components: {
