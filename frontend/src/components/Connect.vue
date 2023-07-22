@@ -2,8 +2,12 @@
 import { web3Accounts, web3Enable } from "@polkadot/extension-dapp";
 import { onMounted } from "vue";
 import { store } from "../store/store";
+import { WsProvider, ApiPromise } from "@polkadot/api";
 
 onMounted(async () => {
+  const wsProvider = new WsProvider();
+  const api = await ApiPromise.create({ provider: wsProvider });
+  store.api = api
   //@ts-ignore
   const allInjected = await web3Enable("SwipePM");
   const allAccounts = await web3Accounts();
@@ -17,10 +21,7 @@ const logMe = () => {
 </script>
 <template>
   <div class="flex flex-justify-center mb-10 mt-10">
-    <button
-      @click="logMe"
-      class="bg-#CCCCCC font-bold text-2xl p-5 b-rd-3 hover:bg-#ffffff"
-    >
+    <button @click="logMe" class="bg-#CCCCCC font-bold text-2xl p-5 b-rd-3 hover:bg-#ffffff">
       Connect
     </button>
     <pre></pre>
