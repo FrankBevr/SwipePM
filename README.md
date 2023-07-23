@@ -14,6 +14,8 @@
   </p>
 </div>
 
+> :exclamation: see state @ submission deadline use `git checkout 5327dbe`
+
 ### Screenshot
 
 <img src="./Screenshot-SwipePM.png" alt="logo" />
