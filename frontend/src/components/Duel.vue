@@ -1,6 +1,4 @@
-<script setup lang="ts">
-import PlaygroundCallButtons from "./PlaygroundCallButtons.vue";
-</script>
+<script setup lang="ts"></script>
 <template>
   <main>
     <div
@@ -28,6 +26,5 @@ import PlaygroundCallButtons from "./PlaygroundCallButtons.vue";
         </div>
       </div>
     </div>
-    <PlaygroundCallButtons />
   </main>
 </template>
