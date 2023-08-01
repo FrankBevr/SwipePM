@@ -11,6 +11,9 @@ dependencies:
   '@polkadot/api-contract':
     specifier: ^10.9.1
     version: 10.9.1
+  '@polkadot/types':
+    specifier: ^10.9.1
+    version: 10.9.1
   '@polkadot/util':
     specifier: ^12.3.2
     version: 12.3.2

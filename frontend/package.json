@@ -18,6 +18,7 @@
   "dependencies": {
     "@polkadot/api": "^10.9.1",
     "@polkadot/api-contract": "^10.9.1",
+    "@polkadot/types": "^10.9.1",
     "@polkadot/util": "^12.3.2",
     "vue": "^3.3.4"
   }
