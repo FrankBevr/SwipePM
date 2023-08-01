@@ -1,18 +1,5 @@
 import { reactive } from "vue";
-import { InjectedAccountWithMeta } from "@polkadot/extension-inject/types";
-import { ApiPromise } from "@polkadot/api";
-import metadata from "./football_match.json";
 
-interface Store {
-  accounts: InjectedAccountWithMeta[] | null;
-  selectedAccount: InjectedAccountWithMeta | null;
-  api: ApiPromise | null;
-  metadata: any;
-}
+interface Store {}
 
-export const store: Store = reactive({
-  accounts: null,
-  selectedAccount: null,
-  api: null,
-  metadata: metadata,
-});
+export const store: Store = reactive({});
