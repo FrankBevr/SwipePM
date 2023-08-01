@@ -1,9 +1,13 @@
 import "./style.css";
 import "virtual:uno.css";
 import { createApp } from "vue";
+//@ts-ignore
 import Header from "./components/Header.vue";
+//@ts-ignore
 import Duel from "./components/Duel.vue";
+//@ts-ignore
 import Connect from "./components/Connect.vue";
+//@ts-ignore
 import PlaygroundCallButtons from "./components/PlaygroundCallButtons.vue";
 
 const app = createApp({
@@ -11,12 +15,13 @@ const app = createApp({
     Header,
     Duel,
     Connect,
+    PlaygroundCallButtons,
   },
   template: `
     <Header/>
     <Duel/>
-    <!-- <Connect/> -->
-    <!-- <PlaygroundCallButtons/> -->
+    <Connect/>
+    <PlaygroundCallButtons/>
   `,
 });
 
