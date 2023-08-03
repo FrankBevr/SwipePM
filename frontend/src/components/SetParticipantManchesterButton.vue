@@ -47,7 +47,7 @@ async function set_participant_manchester() {
 </script>
 <template>
   <div
-    class="flex flex-justify-center p-10 flex-col text-center outline items-center max-w-xl m-auto backdrop-blur b-rd-3">
+    class="flex flex-justify-center p-10 flex-col font-light text-center outline items-center max-w-xl m-auto backdrop-blur b-rd-3 border-none outline outline-1">
     <p class="leading-relaxed">
       <strong>footballMatch::set_participant_manchester</strong> sets the
       participant who bets on manchester.
@@ -56,7 +56,8 @@ async function set_participant_manchester() {
       <br />
       The address of the caller will be safed.
     </p>
-    <button @click="set_participant_manchester" type="button" class="bg-#CCCCCC font-bold text-2xl p-5 b-rd-3">
+    <button @click="set_participant_manchester" type="button"
+      class="bg-#CCCCCC hover:bg-#DDDDDD active:bg-#FFFFFF font-light text-base p-5 b-rd-3 max-w-md border-none outline outline-1">
       setParticpantManchester
     </button>
     <p v-if="participantManchester === null">None bid on Manchester</p>

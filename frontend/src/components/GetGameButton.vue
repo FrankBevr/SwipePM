@@ -49,8 +49,7 @@ const call_getGame = async () => {
 </script>
 <template>
   <div
-    class="flex flex-justify-center p-10 flex-col text-center outline items-center max-w-xl m-auto backdrop-blur b-rd-3"
-  >
+    class="flex flex-justify-center p-10 flex-col text-center outline items-center max-w-xl m-auto backdrop-blur b-rd-3 border-none outline outline-1 text-base font-light">
     <p class="leading-relaxed">
       <strong>footballMatch::get_game</strong> returns 0.
       <br />
@@ -60,11 +59,9 @@ const call_getGame = async () => {
       <br />
       Value of 2 is united won.
     </p>
-    <button
-      type="button"
-      class="bg-#CCCCCC hover:bg-#DDDDDD active:bg-#FFFFFF font-bold text-2xl p-5 b-rd-3 max-w-md"
-      @click="call_getGame"
-    >
+    <button type="button"
+      class="bg-#CCCCCC hover:bg-#DDDDDD active:bg-#FFFFFF font-light text-base p-5 b-rd-3 max-w-md border-none outline outline-1"
+      @click="call_getGame">
       getGame
     </button>
     <p v-if="getGame === null">0</p>

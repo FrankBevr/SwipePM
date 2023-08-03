@@ -48,8 +48,7 @@ const call_setWinner = async () => {
 </script>
 <template>
   <div
-    class="flex flex-justify-center p-10 flex-col text-center outline items-center max-w-xl m-auto backdrop-blur b-rd-3"
-  >
+    class="flex flex-justify-center font-light p-10 flex-col text-center outline items-center max-w-xl m-auto backdrop-blur b-rd-3 border-none outline outline-1">
     <p class="leading-relaxed">
       <strong>footballMatch::set_winner</strong> sets the winner.
       <br />
@@ -61,11 +60,8 @@ const call_setWinner = async () => {
       <br />
       If Admin sets value 2, united won.
     </p>
-    <button
-      @click="call_setWinner"
-      type="button"
-      class="bg-#CCCCCC hover:bg-#DDDDDD active:bg-#FFFFFF font-bold text-2xl p-5 b-rd-3 max-w-md"
-    >
+    <button @click="call_setWinner" type="button"
+      class="bg-#CCCCCC hover:bg-#DDDDDD active:bg-#FFFFFF font-light text-base p-5 b-rd-3 max-w-md border-none outline outline-1">
       setWinner
     </button>
   </div>
