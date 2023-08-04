@@ -9,43 +9,34 @@ import {
   web3Enable,
   web3FromAddress,
 } from "@polkadot/extension-dapp";
-import type {
-  InjectedExtension,
-  InjectedAccountWithMeta,
-} from "@polkadot/extension-inject/types";
 import { Ref, ref } from "vue";
 import { ApiPromise, WsProvider } from "@polkadot/api";
 import { store } from "../store/store";
 
-const allInjected: Ref<null | InjectedExtension[]> = ref(null);
-const allAccounts: Ref<null | InjectedAccountWithMeta[]> = ref(null);
-const selectedAccount: Ref<null | InjectedAccountWithMeta> = ref(null);
-const injector: Ref<null | InjectedExtension> = ref(null);
 const successTransaction: Ref<boolean> = ref(false);
 
 async function get_accounts() {
-  allInjected.value = await web3Enable("my cool dapp");
-  allAccounts.value = await web3Accounts();
+  store.allInjected = await web3Enable("my cool dapp");
+  store.allAccounts = await web3Accounts();
 }
 async function select_account(index: number) {
-  allInjected.value = await web3Enable("my cool dapp");
-  allAccounts.value = await web3Accounts();
-  selectedAccount.value = allAccounts.value[index];
+  store.allInjected = await web3Enable("my cool dapp");
+  store.allAccounts = await web3Accounts();
+  store.selectedAccount = store.allAccounts[index];
 }
 async function send_transaction() {
-  allInjected.value = await web3Enable("my cool dapp");
-  allAccounts.value = await web3Accounts();
-  selectedAccount.value = allAccounts.value[3];
+  store.allInjected = await web3Enable("my cool dapp");
+  store.allAccounts = await web3Accounts();
+  store.selectedAccount = store.allAccounts[3];
 
   const wsProvider = new WsProvider();
   const api = await ApiPromise.create({ provider: wsProvider });
 
-  const SENDER = selectedAccount.value.address;
-  injector.value = await web3FromAddress(SENDER);
-
+  const SENDER = store.selectedAccount.address;
+  store.injector = await web3FromAddress(SENDER);
   api.tx.balances
     .transfer("5C5555yEXUcmEJ5kkcCMvdZjUo7NGJiQJMS7vZXEeoMhj3VQ", 123456)
-    .signAndSend(SENDER, { signer: injector.value.signer }, (status) => {
+    .signAndSend(SENDER, { signer: store.injector.signer }, (status) => {
       successTransaction.value = status.isInBlock;
     });
 }
@@ -96,17 +87,23 @@ async function send_transaction() {
   <div
     class="flex flex-justify-center p-10 flex-col text-center outline outline-1 items-center max-w-xl m-auto backdrop-blur b-rd-3 border-none">
     <p class="leading-relaxed">show all Accounts</p>
-    <pre class="font-light text-10px text-left w-full">
-      {{ allAccounts }}
+    <pre class="font-light text-10px text-left w-full" v-if="store.allAccounts">
+      {{ store.allAccounts }}
     </pre>
+    <pre class="font-light text-10px text-left w-full" v-else>
+Press get_accounts Buttons</pre>
     <p class="leading-relaxed">show selected Accounts</p>
-    <pre class="font-light text-10px text-left w-full" v-if="allAccounts">
-     {{ allAccounts[0] }}
+    <pre class="font-light text-10px text-left w-full" v-if="store.selectedAccount">
+     {{ store.selectedAccount }}
     </pre>
+    <pre class="font-light text-10px text-left w-full" v-else>
+Press get_accounts() and then select_accounts(3) Buttons</pre>
     <p class="leading-relaxed">shows metadata of an selected Accounts</p>
-    <pre class="font-light text-10px text-left w-full" v-if="allAccounts">
-      {{ allAccounts[0].meta }}
+    <pre class="font-light text-10px text-left w-full" v-if="store.selectedAccount">
+      {{ store.selectedAccount.meta }}
     </pre>
+    <pre class="font-light text-10px text-left w-full" v-else>
+Press get_accounts() and then select_accounts(3) Buttons</pre>
   </div>
   <div
     class="flex flex-justify-center p-10 flex-col text-center outline items-center max-w-xl m-auto backdrop-blur b-rd-3 border-none outline outline-1 text-base font-light items-stretch">
