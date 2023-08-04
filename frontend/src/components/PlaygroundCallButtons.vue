@@ -15,6 +15,7 @@ import type {
 } from "@polkadot/extension-inject/types";
 import { Ref, ref } from "vue";
 import { ApiPromise, WsProvider } from "@polkadot/api";
+import { store } from "../store/store";
 
 const allInjected: Ref<null | InjectedExtension[]> = ref(null);
 const allAccounts: Ref<null | InjectedAccountWithMeta[]> = ref(null);
@@ -106,5 +107,23 @@ async function send_transaction() {
     <pre class="font-light text-10px text-left w-full" v-if="allAccounts">
       {{ allAccounts[0].meta }}
     </pre>
+  </div>
+  <div
+    class="flex flex-justify-center p-10 flex-col text-center outline items-center max-w-xl m-auto backdrop-blur b-rd-3 border-none outline outline-1 text-base font-light items-stretch">
+    <p class="leading-relaxed">
+      <strong>store.contractAddress</strong> holds the contract address
+      globally.
+      <br />
+      After redeploy it allows to reset the contract to the new value.
+    </p>
+    <form @submit.prevent>
+      <div>
+        <label for="address" class="block text-sm font-light">Contract Address</label>
+        <input
+          class="text-white w-full leading-tight focus:outline-none focus:shadow-outline opacity-20 bg-black leading-5 m-0 p-10px"
+          type="text" name="address" v-model="store.contractAddress" />
+      </div>
+      SwipePM's contract address is {{ store.contractAddress }}
+    </form>
   </div>
 </template>

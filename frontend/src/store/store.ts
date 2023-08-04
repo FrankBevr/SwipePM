@@ -1,5 +1,9 @@
 import { reactive } from "vue";
 
-interface Store {}
+interface Store {
+  contractAddress: string;
+}
 
-export const store: Store = reactive({});
+export const store: Store = reactive({
+  contractAddress: "",
+});
