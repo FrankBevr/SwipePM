@@ -5,6 +5,7 @@ import type { WeightV2 } from "@polkadot/types/interfaces";
 import * as abi from "./football_match.json";
 import { BN, BN_ONE } from "@polkadot/util";
 import { Ref, ref } from "vue";
+import { store } from "../store/store";
 
 const participantManchester: Ref<null | string> = ref(null);
 
@@ -14,7 +15,7 @@ async function set_participant_manchester() {
 
   const keyring = new Keyring({ type: "sr25519" });
   const charlie = keyring.addFromUri("//Charlie", { name: "Charlie" });
-  const address = "5EkfPTWeH5UmTEAHQGDaGvNXGU3EGzQsTSXKiuSk6r9ADXZf";
+  const address = store.contractAddress;
 
   const contract = new ContractPromise(api, abi, address);
 

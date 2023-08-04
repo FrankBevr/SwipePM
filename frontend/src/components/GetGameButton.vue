@@ -5,6 +5,7 @@ import type { WeightV2 } from "@polkadot/types/interfaces";
 import { ContractPromise } from "@polkadot/api-contract";
 import * as metadata from "./football_match.json";
 import { Ref, onMounted, ref } from "vue";
+import { store } from "../store/store";
 
 const MAX_CALL_WEIGHT = new BN(5_000_000_000_000).isub(BN_ONE);
 const PROOFSIZE = new BN(1_000_000);
@@ -21,7 +22,7 @@ const call_getGame = async () => {
   const keyring = new Keyring({ type: "sr25519" });
   const alice = keyring.addFromUri("//Alice");
 
-  const address = "5EkfPTWeH5UmTEAHQGDaGvNXGU3EGzQsTSXKiuSk6r9ADXZf";
+  const address = store.contractAddress;
   const contract = new ContractPromise(api, metadata, address);
 
   const storageDepositLimit = null;
