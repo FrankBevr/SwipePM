@@ -15,7 +15,7 @@ const set_participant_chelsea = async () => {
   const api = await ApiPromise.create({ provider: wsProvider });
 
   const keyring = new Keyring({ type: "sr25519" });
-  const bob = keyring.addFromUri("//Bob", { name: "Bob" });
+  const bob = keyring.addFromUri("//Alice", { name: "Alice" });
 
   const address = store.contractAddress;
   const contract = new ContractPromise(api, metadata, address);
@@ -41,8 +41,8 @@ const set_participant_chelsea = async () => {
     gasLimit,
     storageDepositLimit,
   }).signAndSend(bob, async (res) => {
-    if (res.isInBlock) {
-      store.participantChelsea = "Bob";
+    if (res.isInBlock && bob.meta.name) {
+      store.participantChelsea = bob.meta.name;
     }
   });
 };
@@ -52,7 +52,7 @@ const set_participant_manchester = async () => {
   const api = await ApiPromise.create({ provider: wsProvider });
 
   const keyring = new Keyring({ type: "sr25519" });
-  const charlie = keyring.addFromUri("//Charlie", { name: "Charlie" });
+  const charlie = keyring.addFromUri("//Bob", { name: "Bob" });
   const address = store.contractAddress;
 
   const contract = new ContractPromise(api, metadata, address);
@@ -75,8 +75,8 @@ const set_participant_manchester = async () => {
     gasLimit,
     storageDepositLimit,
   }).signAndSend(charlie, async (res) => {
-    if (res.isInBlock) {
-      store.participantManchester = "Charlie";
+    if (res.isInBlock && charlie.meta.name) {
+      store.participantManchester = charlie.meta.name;
     }
   });
 };
