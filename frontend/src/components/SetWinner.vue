@@ -1,12 +1,13 @@
 <script setup lang="ts">
 import GetGameButton from "./playground/GetGameButton.vue";
 
-import { WsProvider, ApiPromise } from "@polkadot/api";
+import { WsProvider, ApiPromise, Keyring } from "@polkadot/api";
 import { BN, BN_ONE } from "@polkadot/util";
 import type { WeightV2 } from "@polkadot/types/interfaces";
 import { ContractPromise } from "@polkadot/api-contract";
 import * as metadata from "./football_match.json";
 import { store } from "../store/store";
+import { watchEffect } from "vue";
 
 const MAX_CALL_WEIGHT = new BN(5_000_000_000_000).isub(BN_ONE);
 const PROOFSIZE = new BN(1_000_000);
@@ -41,13 +42,45 @@ async function set_winner(winner: number) {
       storageDepositLimit,
     },
     winner,
-  ).signAndSend(store.selectedAccount?.address!, { signer: store.injector!.signer }, (status) => {
-    if (status.isInBlock) {
-      console.log("sucess")
-      console.log(status)
-      store.winner = "0"
+  ).signAndSend(store.selectedAccount?.address!, { signer: store.injector!.signer }, (res) => {
+    if (res.isInBlock) {
+      call_getGame()
     }
   });
+};
+
+const call_getGame = async () => {
+  const wsProvider = new WsProvider();
+  const api = await ApiPromise.create({ provider: wsProvider });
+
+  const keyring = new Keyring({ type: "sr25519" });
+  const alice = keyring.addFromUri("//Alice");
+
+  const address = store.contractAddress;
+  const contract = new ContractPromise(api, metadata, address);
+
+  const storageDepositLimit = null;
+
+  const { result, output } = await contract.query["footballMatch::getGame"](
+    alice.address,
+    {
+      gasLimit: api?.registry.createType("WeightV2", {
+        refTime: MAX_CALL_WEIGHT,
+        proofSize: PROOFSIZE,
+      }) as WeightV2,
+      storageDepositLimit,
+    },
+  );
+
+  if (result.isOk) {
+    const outy = output?.toJSON() as { ok: { ok: number } };
+    if (outy !== undefined) {
+      store.winner = outy["ok"]["ok"];
+      store.winnerDeclared = true;
+    }
+  } else {
+    console.error("Error", result.asErr);
+  }
 };
 </script>
 <template>

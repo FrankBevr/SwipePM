@@ -13,6 +13,8 @@ import PlaygroundCallButtons from "./components/playground/PlaygroundCallButtons
 import SetContract from "./components/SetContract.vue";
 //@ts-ignore
 import SetWinner from "./components/SetWinner.vue";
+//@ts-ignore
+import ShowWinner from "./components/ShowWinner.vue";
 
 import { store } from "./store/store.ts";
 
@@ -24,6 +26,7 @@ const app = createApp({
     PlaygroundCallButtons,
     SetContract,
     SetWinner,
+    ShowWinner,
   },
   setup() {
     return {
@@ -42,7 +45,8 @@ const app = createApp({
       store.contractAddress !== '' && 
       store.participantChelsea === ''
     "/>
-    <SetWinner v-else/>
+    <SetWinner v-else-if="store.winnerDeclared === false"/>
+    <ShowWinner v-else-if="store.winnerDeclared === true"/>
   `,
 });
 
