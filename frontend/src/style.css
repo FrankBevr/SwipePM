@@ -19,3 +19,6 @@ body::-webkit-scrollbar {
 #app {
   height: 100%;
 }
+.cursor-pointer {
+  cursor: pointer;
+}
