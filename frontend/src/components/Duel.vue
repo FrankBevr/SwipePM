@@ -87,65 +87,91 @@ const manchesterStyle = ref(
 const chelseaStyle = ref(
   "flex flex-col outline outline-1 w-72 b-rd-3 bg-#80D4FF hover:bg-#a0F4FF hover:px-9 duration-500 p-7 gap-5",
 );
+
+const toastStyle = ref("hidden");
 watch(store, () => {
   if (store.participantChelsea !== "") {
     chelseaStyle.value =
       "flex flex-col outline outline-1 w-72 b-rd-3 bg-#dddddd p-7 gap-5 pointer-events-none duration-500";
+
+    toastStyle.value =
+      "border-solid border-1 border-green p-5 absolute top-0 right-0 z-1 m-0 mt-5 mr-5 backdrop-blur b-rd-3 flex flex-justify-center text-black animate-bounce";
+    setTimeout(() => {
+      toastStyle.value = "hidden";
+    }, 3000);
   }
   if (store.participantManchester !== "") {
     manchesterStyle.value =
       "flex flex-col outline outline-1 w-72 b-rd-3 bg-#dddddd p-7 gap-5 pointer-events-none duration-500";
+
+    toastStyle.value =
+      "border-solid border-1 border-green p-5 absolute top-0 right-0 z-1 m-0 mt-5 mr-5 backdrop-blur b-rd-3 flex flex-justify-center text-black animate-bounce";
+    setTimeout(() => {
+      toastStyle.value = "hidden";
+    }, 3000);
   }
 });
 </script>
 <template>
   <main>
-    <div
-      class="bg-#ffffff/[.40] bg-r-5 p-25 b-rd-3 outline outline-1 backdrop-blur mt-20 max-w-screen-lg mx-auto"
-    >
+    <div class="bg-#ffffff/[.40] bg-r-5 p-25 b-rd-3 outline outline-1 backdrop-blur mt-20 max-w-screen-lg mx-auto">
       <div class="flex flex-row flex-justify-center mt-6">
         <div :class="manchesterStyle">
           <img src="/logo-manchester.png" alt="manchester" class="" />
-          <button
-            type="button"
-            @click="set_participant_manchester"
-            class="bg-#CCCCCC hover:bg-#DDDDDD active:bg-#FFFFFF font-light text-base p-5 b-rd-3 max-w-md border-none outline outline-1 mt-auto m-5"
-          >
+          <button type="button" @click="set_participant_manchester"
+            class="bg-#CCCCCC hover:bg-#DDDDDD active:bg-#FFFFFF font-light text-base p-5 b-rd-3 max-w-md border-none outline outline-1 mt-auto m-5">
             PICK
           </button>
         </div>
         <img src="/vs.svg" alt="vs" class="p-10" />
         <div :class="chelseaStyle">
           <img src="/logo-chelsea.png" alt="chelsea" class="item-center" />
-          <button
-            type="button"
-            @click="set_participant_chelsea"
-            class="bg-#CCCCCC hover:bg-#DDDDDD active:bg-#FFFFFF font-light text-base p-5 b-rd-3 max-w-md border-none outline outline-1 mt-auto m-5"
-          >
+          <button type="button" @click="set_participant_chelsea"
+            class="bg-#CCCCCC hover:bg-#DDDDDD active:bg-#FFFFFF font-light text-base p-5 b-rd-3 max-w-md border-none outline outline-1 mt-auto m-5">
             PICK
           </button>
         </div>
       </div>
     </div>
+    <!------------>
+    <!--HISOTRY--->
+    <!------------>
+    <div
+      class="flex flex-justify-center p-10 flex-col text-center outline items-center max-w-xl m-auto backdrop-blur b-rd-3 border-none outline outline-1 text-base font-light mt-10">
+      <h1>History</h1>
+    </div>
     <div
       class="flex flex-justify-center p-10 flex-col text-center outline items-center max-w-xl m-auto backdrop-blur b-rd-3 border-none outline outline-1 text-base font-light mt-10"
-      v-if="store.participantManchester !== ''"
-    >
+      v-if="store.participantChelsea === '' && store.participantManchester === ''
+        ">
+      <p class="leading-relaxed"><strong>Noone</strong> voted yet.</p>
+    </div>
+    <div
+      class="flex flex-justify-center p-10 flex-col text-center outline items-center max-w-xl m-auto backdrop-blur b-rd-3 border-none outline outline-1 text-base font-light mt-10"
+      v-if="store.participantChelsea !== ''">
+      <p class="leading-relaxed">
+        <strong>{{ store.participantChelsea }}</strong> voted for Chelsea.
+        <br />
+        🎉 {{ store.participantChelsea }} is an amazing voter 🎉
+      </p>
+    </div>
+    <div
+      class="flex flex-justify-center p-10 flex-col text-center outline items-center max-w-xl m-auto backdrop-blur b-rd-3 border-none outline outline-1 text-base font-light mt-10"
+      v-if="store.participantManchester !== ''">
       <p class="leading-relaxed">
         <strong>{{ store.participantManchester }}</strong> voted for Manchester.
         <br />
         🎉 {{ store.participantManchester }} is an amazing voter 🎉
       </p>
     </div>
-    <div
-      class="flex flex-justify-center p-10 flex-col text-center outline items-center max-w-xl m-auto backdrop-blur b-rd-3 border-none outline outline-1 text-base font-light mt-10"
-      v-if="store.participantChelsea !== ''"
-    >
-      <p class="leading-relaxed">
-        <strong>{{ store.participantChelsea }}</strong> voted for Chelsea.
-        <br />
-        🎉 {{ store.participantChelsea }} is an amazing voter 🎉
-      </p>
+    <!------------>
+    <!--TOASTER--->
+    <!------------>
+    <div :class="toastStyle" v-if="store.participantChelsea !== ''">
+      🎉 {{ store.participantChelsea }} is an amazing voter 🎉
+    </div>
+    <div :class="toastStyle" v-if="store.participantManchester !== ''">
+      🎉 {{ store.participantManchester }} is an amazing voter 🎉
     </div>
   </main>
 </template>
