@@ -13,6 +13,7 @@ interface Store {
   isConntected: boolean;
   participantManchester: string;
   participantChelsea: string;
+  winner: string;
 }
 
 export let store: Store = reactive({
@@ -24,4 +25,5 @@ export let store: Store = reactive({
   isConntected: false,
   participantManchester: "",
   participantChelsea: "",
+  winner: "",
 });

@@ -43,11 +43,6 @@ const app = createApp({
       store.participantChelsea === ''
     "/>
     <SetWinner v-else/>
-    <details class="p-10 cursor-pointer">
-      <summary class="flex flex-justify-center">&#9205; Wann see a Playground?</summary>
-      <div class="flex flex-justify-center">Scroll down</div>
-      <PlaygroundCallButtons/>
-    </details>
   `,
 });
 

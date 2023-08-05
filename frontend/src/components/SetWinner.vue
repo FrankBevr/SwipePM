@@ -1,5 +1,7 @@
 <script setup lang="ts">
-import { WsProvider, ApiPromise, Keyring } from "@polkadot/api";
+import GetGameButton from "./playground/GetGameButton.vue";
+
+import { WsProvider, ApiPromise } from "@polkadot/api";
 import { BN, BN_ONE } from "@polkadot/util";
 import type { WeightV2 } from "@polkadot/types/interfaces";
 import { ContractPromise } from "@polkadot/api-contract";
@@ -12,17 +14,12 @@ const PROOFSIZE = new BN(1_000_000);
 async function set_winner(winner: number) {
   const wsProvider = new WsProvider();
   const api = await ApiPromise.create({ provider: wsProvider });
+  console.log(store.selectedAccount)
 
-  const keyring = new Keyring({ type: "sr25519" });
-  const alice = keyring.addFromUri("//Alice");
-
-  const address = store.contractAddress;
-  const contract = new ContractPromise(api, metadata, address);
-
+  const contract = new ContractPromise(api, metadata, store.contractAddress);
   const storageDepositLimit = null;
-
   const { gasRequired } = await contract.query["footballMatch::setWinner"](
-    alice.address,
+    store.selectedAccount!.address,
     {
       gasLimit: api?.registry.createType("WeightV2", {
         refTime: MAX_CALL_WEIGHT,
@@ -44,7 +41,13 @@ async function set_winner(winner: number) {
       storageDepositLimit,
     },
     winner,
-  ).signAndSend(alice);
+  ).signAndSend(store.selectedAccount?.address!, { signer: store.injector!.signer }, (status) => {
+    if (status.isInBlock) {
+      console.log("sucess")
+      console.log(status)
+      store.winner = "0"
+    }
+  });
 };
 </script>
 <template>
@@ -75,5 +78,9 @@ async function set_winner(winner: number) {
       Chelsea won
     </button>
   </div>
+  <details class="p-5 cursor-pointer">
+    <summary class="flex flex-justify-center">&#9205; Wann check the result?</summary>
+    <GetGameButton />
+  </details>
 </template>
 
