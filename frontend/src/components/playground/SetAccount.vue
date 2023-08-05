@@ -6,7 +6,7 @@ import {
 } from "@polkadot/extension-dapp";
 import { Ref, ref } from "vue";
 import { ApiPromise, WsProvider } from "@polkadot/api";
-import { store } from "../store/store";
+import { store } from "../../store/store";
 
 const successTransaction: Ref<boolean> = ref(false);
 

@@ -2,10 +2,10 @@
 import { WsProvider, ApiPromise, Keyring } from "@polkadot/api";
 import { ContractPromise } from "@polkadot/api-contract";
 import type { WeightV2 } from "@polkadot/types/interfaces";
-import * as abi from "./football_match.json";
+import * as abi from "../football_match.json";
 import { BN, BN_ONE } from "@polkadot/util";
 import { Ref, ref } from "vue";
-import { store } from "../store/store";
+import { store } from "../../store/store";
 
 const participantManchester: Ref<null | string> = ref(null);
 

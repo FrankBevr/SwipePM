@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { store } from "../store/store.ts";
+import { store } from "../../store/store.ts";
 </script>
 <template>
   <div

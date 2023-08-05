@@ -8,7 +8,7 @@ import Duel from "./components/Duel.vue";
 //@ts-ignore
 import Connect from "./components/Connect.vue";
 //@ts-ignore
-import PlaygroundCallButtons from "./components/PlaygroundCallButtons.vue";
+import PlaygroundCallButtons from "./components/playground/PlaygroundCallButtons.vue";
 
 const app = createApp({
   components: {

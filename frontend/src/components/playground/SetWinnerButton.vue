@@ -3,8 +3,8 @@ import { WsProvider, ApiPromise, Keyring } from "@polkadot/api";
 import { BN, BN_ONE } from "@polkadot/util";
 import type { WeightV2 } from "@polkadot/types/interfaces";
 import { ContractPromise } from "@polkadot/api-contract";
-import * as metadata from "./football_match.json";
-import { store } from "../store/store";
+import * as metadata from "../football_match.json";
+import { store } from "../../store/store";
 
 const MAX_CALL_WEIGHT = new BN(5_000_000_000_000).isub(BN_ONE);
 const PROOFSIZE = new BN(1_000_000);
