@@ -9,6 +9,9 @@ import Duel from "./components/Duel.vue";
 import Connect from "./components/Connect.vue";
 //@ts-ignore
 import PlaygroundCallButtons from "./components/playground/PlaygroundCallButtons.vue";
+//@ts-ignore
+import SetContract from "./components/SetContract.vue";
+
 import { store } from "./store/store.ts";
 
 const app = createApp({
@@ -17,6 +20,7 @@ const app = createApp({
     Duel,
     Connect,
     PlaygroundCallButtons,
+    SetContract,
   },
   setup() {
     return {
@@ -25,8 +29,9 @@ const app = createApp({
   },
   template: `
     <Header/>
-    <Duel v-if="store.isConntected"/>
-    <Connect v-else="store.isConntected"/>
+    <Connect v-if="!store.isConntected"/>
+    <SetContract v-else-if="store.isConntected && store.contractAddress === ''"/>
+    <Duel v-else/>
     <details class="p-10 cursor-pointer">
       <summary class="flex flex-justify-center">&#9205; Wann see a Playground?</summary>
       <div class="flex flex-justify-center">Scroll down</div>
