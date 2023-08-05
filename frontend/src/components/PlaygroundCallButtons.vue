@@ -3,6 +3,7 @@ import GetGameButton from "./GetGameButton.vue";
 import SetWinnerButton from "./SetWinnerButton.vue";
 import SetParticipantChelseaButton from "./SetParticipantChelseaButton.vue";
 import SetParticpantManchesterButton from "./SetParticipantManchesterButton.vue";
+import SetStoreContractAddress from "./SetStoreContractAddress.vue";
 
 import {
   web3Accounts,
@@ -83,9 +84,6 @@ async function send_transaction() {
       send_transaction
     </button>
     <p v-if="successTransaction">Its was successfull</p>
-  </div>
-  <div
-    class="flex flex-justify-center p-10 flex-col text-center outline outline-1 items-center max-w-xl m-auto backdrop-blur b-rd-3 border-none">
     <p class="leading-relaxed">show all Accounts</p>
     <pre class="font-light text-10px text-left w-full" v-if="store.allAccounts">
       {{ store.allAccounts }}
@@ -105,22 +103,5 @@ Press get_accounts() and then select_accounts(3) Buttons</pre>
     <pre class="font-light text-10px text-left w-full" v-else>
 Press get_accounts() and then select_accounts(3) Buttons</pre>
   </div>
-  <div
-    class="flex flex-justify-center p-10 flex-col text-center outline items-center max-w-xl m-auto backdrop-blur b-rd-3 border-none outline outline-1 text-base font-light items-stretch">
-    <p class="leading-relaxed">
-      <strong>store.contractAddress</strong> holds the contract address
-      globally.
-      <br />
-      After redeploy it allows to reset the contract to the new value.
-    </p>
-    <form @submit.prevent>
-      <div>
-        <label for="address" class="block text-sm font-light">Contract Address</label>
-        <input
-          class="text-white w-full leading-tight focus:outline-none focus:shadow-outline opacity-20 bg-black leading-5 m-0 p-10px"
-          type="text" name="address" v-model="store.contractAddress" />
-      </div>
-      SwipePM's contract address is {{ store.contractAddress }}
-    </form>
-  </div>
+  <SetStoreContractAddress></SetStoreContractAddress>
 </template>
