@@ -1,4 +1,7 @@
 <script setup lang="ts">
+import Toast from "./Toast.vue";
+import History from "./History.vue";
+
 import { WsProvider, ApiPromise, Keyring } from "@polkadot/api";
 import { BN, BN_ONE } from "@polkadot/util";
 import type { WeightV2 } from "@polkadot/types/interfaces";
@@ -88,27 +91,14 @@ const chelseaStyle = ref(
   "flex flex-col outline outline-1 w-72 b-rd-3 bg-#80D4FF hover:bg-#a0F4FF hover:px-9 duration-500 p-7 gap-5",
 );
 
-const toastStyle = ref("hidden");
 watch(store, () => {
   if (store.participantChelsea !== "") {
     chelseaStyle.value =
       "flex flex-col outline outline-1 w-72 b-rd-3 bg-#dddddd p-7 gap-5 pointer-events-none duration-500";
-
-    toastStyle.value =
-      "border-solid border-1 border-green p-5 absolute top-0 right-0 z-1 m-0 mt-5 mr-5 backdrop-blur b-rd-3 flex flex-justify-center text-black animate-bounce";
-    setTimeout(() => {
-      toastStyle.value = "hidden";
-    }, 3000);
   }
   if (store.participantManchester !== "") {
     manchesterStyle.value =
       "flex flex-col outline outline-1 w-72 b-rd-3 bg-#dddddd p-7 gap-5 pointer-events-none duration-500";
-
-    toastStyle.value =
-      "border-solid border-1 border-green p-5 absolute top-0 right-0 z-1 m-0 mt-5 mr-5 backdrop-blur b-rd-3 flex flex-justify-center text-black animate-bounce";
-    setTimeout(() => {
-      toastStyle.value = "hidden";
-    }, 3000);
   }
 });
 </script>
@@ -133,45 +123,7 @@ watch(store, () => {
         </div>
       </div>
     </div>
-    <!------------>
-    <!--HISOTRY--->
-    <!------------>
-    <div
-      class="flex flex-justify-center p-10 flex-col text-center outline items-center max-w-xl m-auto backdrop-blur b-rd-3 border-none outline outline-1 text-base font-light mt-10">
-      <h1>History</h1>
-    </div>
-    <div
-      class="flex flex-justify-center p-10 flex-col text-center outline items-center max-w-xl m-auto backdrop-blur b-rd-3 border-none outline outline-1 text-base font-light mt-10"
-      v-if="store.participantChelsea === '' && store.participantManchester === ''
-        ">
-      <p class="leading-relaxed"><strong>Noone</strong> voted yet.</p>
-    </div>
-    <div
-      class="flex flex-justify-center p-10 flex-col text-center outline items-center max-w-xl m-auto backdrop-blur b-rd-3 border-none outline outline-1 text-base font-light mt-10"
-      v-if="store.participantChelsea !== ''">
-      <p class="leading-relaxed">
-        <strong>{{ store.participantChelsea }}</strong> voted for Chelsea.
-        <br />
-        🎉 {{ store.participantChelsea }} is an amazing voter 🎉
-      </p>
-    </div>
-    <div
-      class="flex flex-justify-center p-10 flex-col text-center outline items-center max-w-xl m-auto backdrop-blur b-rd-3 border-none outline outline-1 text-base font-light mt-10"
-      v-if="store.participantManchester !== ''">
-      <p class="leading-relaxed">
-        <strong>{{ store.participantManchester }}</strong> voted for Manchester.
-        <br />
-        🎉 {{ store.participantManchester }} is an amazing voter 🎉
-      </p>
-    </div>
-    <!------------>
-    <!--TOASTER--->
-    <!------------>
-    <div :class="toastStyle" v-if="store.participantChelsea !== ''">
-      🎉 {{ store.participantChelsea }} is an amazing voter 🎉
-    </div>
-    <div :class="toastStyle" v-if="store.participantManchester !== ''">
-      🎉 {{ store.participantManchester }} is an amazing voter 🎉
-    </div>
+    <History></History>
+    <Toast></Toast>
   </main>
 </template>
