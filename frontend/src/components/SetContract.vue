@@ -9,7 +9,7 @@ const submitForm = () => {
 </script>
 <template>
   <div
-    class="flex flex-justify-center p-10 flex-col text-center outline items-center max-w-xl m-auto backdrop-blur b-rd-3 border-none outline outline-1 text-base font-light">
+    class="flex flex-justify-center p-10 flex-col text-center outline items-center max-w-xl m-auto backdrop-blur b-rd-3 border-none outline outline-1 text-base font-light mt-20">
     <p class="leading-relaxed">
       <strong>Instantiate your Contract</strong> before continue.
     <ol class="text-left leading-10">
