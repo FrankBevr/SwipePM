@@ -11,6 +11,8 @@ import Connect from "./components/Connect.vue";
 import PlaygroundCallButtons from "./components/playground/PlaygroundCallButtons.vue";
 //@ts-ignore
 import SetContract from "./components/SetContract.vue";
+//@ts-ignore
+import SetWinner from "./components/SetWinner.vue";
 
 import { store } from "./store/store.ts";
 
@@ -21,6 +23,7 @@ const app = createApp({
     Connect,
     PlaygroundCallButtons,
     SetContract,
+    SetWinner,
   },
   setup() {
     return {
@@ -31,7 +34,15 @@ const app = createApp({
     <Header/>
     <Connect v-if="!store.isConntected"/>
     <SetContract v-else-if="store.isConntected && store.contractAddress === ''"/>
-    <Duel v-else/>
+    <Duel v-else-if="
+      store.isConntected && 
+      store.contractAddress !== '' && 
+      store.participantManchester === '' ||
+      store.isConntected && 
+      store.contractAddress !== '' && 
+      store.participantChelsea === ''
+    "/>
+    <SetWinner v-else/>
     <details class="p-10 cursor-pointer">
       <summary class="flex flex-justify-center">&#9205; Wann see a Playground?</summary>
       <div class="flex flex-justify-center">Scroll down</div>
