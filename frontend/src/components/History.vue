@@ -29,4 +29,5 @@ import { store } from "../store/store";
       🎉 {{ store.participantManchester }} is an amazing voter 🎉
     </p>
   </div>
+  <div class="h-20px w-20px"></div>
 </template>
