@@ -11,6 +11,8 @@ interface Store {
   selectedAccount: null | InjectedAccountWithMeta;
   injector: null | InjectedExtension;
   isConntected: boolean;
+  participantManchester: string;
+  participantChelsea: string;
 }
 
 export let store: Store = reactive({
@@ -20,4 +22,6 @@ export let store: Store = reactive({
   selectedAccount: null,
   injector: null,
   isConntected: false,
+  participantManchester: "",
+  participantChelsea: "",
 });
