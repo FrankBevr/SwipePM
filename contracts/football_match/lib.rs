@@ -139,6 +139,8 @@ pub mod football_match {
 
 #[cfg(test)]
 mod tests {
+    use crate::{libs::errors::Errors, traits::football_match::FootballMatch};
+
     use super::*;
     use ink::primitives::AccountId;
 
@@ -163,7 +165,20 @@ mod tests {
     }
 
     #[test]
-    fn get_game() {}
+    fn get_game_emits_one_event() -> Result<(), Errors> {
+        let accounts = ink::env::test::default_accounts::<ink::env::DefaultEnvironment>();
+        ink::env::test::set_caller::<ink::env::DefaultEnvironment>(accounts.alice);
+
+        let contract = football_match::GameData::new();
+        let get_game_work_is_err = contract.get_game().is_err();
+        if get_game_work_is_err == true {
+            return Err(Errors::DontWork);
+        }
+
+        let emitted_events = ink::env::test::recorded_events().collect::<Vec<_>>();
+        assert_eq!(emitted_events.len(), 1);
+        Ok(())
+    }
 
     #[test]
     fn set_winner() {}
