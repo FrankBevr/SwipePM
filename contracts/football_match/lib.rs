@@ -140,9 +140,27 @@ pub mod football_match {
 #[cfg(test)]
 mod tests {
     use super::*;
+    use ink::primitives::AccountId;
 
-    #[test]
-    fn new() {}
+    #[ink::test]
+    fn winning_team_is_0() {
+        let contract = football_match::GameData::new();
+        assert!(contract.winning_team == 0u8);
+    }
+
+    #[ink::test]
+    fn particpant_is_empty() {
+        let contract = football_match::GameData::new();
+        let empty = AccountId::from([0xFF as u8; 32]);
+        assert!(contract.particpant_chelsea == empty);
+    }
+
+    #[ink::test]
+    fn admin_is_to_caller() {
+        let contract = football_match::GameData::new();
+        let caller = ink::env::test::default_accounts::<ink::env::DefaultEnvironment>().alice;
+        assert!(contract.admin == caller);
+    }
 
     #[test]
     fn get_game() {}
