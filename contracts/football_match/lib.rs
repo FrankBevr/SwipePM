@@ -71,25 +71,44 @@ pub mod football_match {
             if Self::env().caller() != self.admin {
                 return Err(Errors::OnlyAdmin);
             }
+            if number != 1u8 || number != 2u8 {
+                return Err(Errors::OnlyOneOrTwo);
+            }
             self.winning_team = number;
+            if number == 1u8 {
+                let balance = self.env().balance();
+                let call = self.env().transfer(self.particpant_manchester, balance);
+                if call.is_err() {
+                    return Err(Errors::DontWork);
+                }
+            }
+            if number == 2u8 {
+                let balance = self.env().balance();
+                let call = self.env().transfer(self.particpant_chelsea, balance);
+                if call.is_err() {
+                    return Err(Errors::DontWork);
+                }
+            }
             Ok(())
         }
-        #[ink(message)]
+        #[ink(message, payable)]
         fn set_particpant_chelsea(&mut self) -> Result<(), Errors> {
             if self.particpant_chelsea_is_set == true {
                 return Err(ParticipantChelseaIsAlreadySet);
             }
             self.particpant_chelsea = Self::env().caller();
             self.particpant_chelsea_is_set = true;
+            self.env().transferred_value();
             Ok(())
         }
-        #[ink(message)]
+        #[ink(message, payable)]
         fn set_particpant_manchester(&mut self) -> Result<(), Errors> {
             if self.particpant_manchester_is_set == true {
                 return Err(ParticipantManchesterIsAlreadySet);
             }
             self.particpant_manchester = Self::env().caller();
             self.particpant_manchester_is_set = true;
+            self.env().transferred_value();
             Ok(())
         }
 

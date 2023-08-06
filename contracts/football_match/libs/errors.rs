@@ -8,4 +8,5 @@ pub enum Errors {
     OnlyAdmin,
     ParticipantChelseaIsAlreadySet,
     ParticipantManchesterIsAlreadySet,
+    OnlyOneOrTwo,
 }

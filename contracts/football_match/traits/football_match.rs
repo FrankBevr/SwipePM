@@ -9,10 +9,10 @@ pub trait FootballMatch {
     #[ink(message)]
     fn set_winner(&mut self, winner: u8) -> Result<(), Errors>;
 
-    #[ink(message)]
+    #[ink(message, payable)]
     fn set_particpant_chelsea(&mut self) -> Result<(), Errors>;
 
-    #[ink(message)]
+    #[ink(message, payable)]
     fn set_particpant_manchester(&mut self) -> Result<(), Errors>;
 
     #[ink(message)]
