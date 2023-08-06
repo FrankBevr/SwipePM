@@ -136,3 +136,29 @@ pub mod football_match {
         }
     }
 }
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn new() {}
+
+    #[test]
+    fn get_game() {}
+
+    #[test]
+    fn set_winner() {}
+
+    #[test]
+    fn set_particpant_chelsea() {}
+
+    #[test]
+    fn set_particpant_manchester() {}
+
+    #[test]
+    fn change_admin() {}
+
+    #[test]
+    fn restart_match() {}
+}
