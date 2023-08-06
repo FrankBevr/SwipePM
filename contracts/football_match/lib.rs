@@ -144,31 +144,39 @@ mod tests {
     use super::*;
     use ink::primitives::AccountId;
 
-    #[ink::test]
+    #[test]
     fn winning_team_is_0() {
+        let accounts = ink::env::test::default_accounts::<ink::env::DefaultEnvironment>();
+        ink::env::test::set_caller::<ink::env::DefaultEnvironment>(accounts.alice);
+
         let contract = football_match::GameData::new();
         assert!(contract.winning_team == 0u8);
     }
 
-    #[ink::test]
+    #[test]
     fn particpant_is_empty() {
+        let accounts = ink::env::test::default_accounts::<ink::env::DefaultEnvironment>();
+        ink::env::test::set_caller::<ink::env::DefaultEnvironment>(accounts.alice);
+
         let contract = football_match::GameData::new();
         let empty = AccountId::from([0xFF as u8; 32]);
         assert!(contract.particpant_chelsea == empty);
     }
 
-    #[ink::test]
-    fn admin_is_to_caller() {
+    #[test]
+    fn admin_is_to_caller_alice() {
+        let accounts = ink::env::test::default_accounts::<ink::env::DefaultEnvironment>();
+        ink::env::test::set_caller::<ink::env::DefaultEnvironment>(accounts.alice);
+
         let contract = football_match::GameData::new();
-        let caller = ink::env::test::default_accounts::<ink::env::DefaultEnvironment>().alice;
-        assert!(contract.admin == caller);
+        assert!(contract.admin == accounts.alice);
     }
 
     #[test]
     fn get_game_emits_one_event() -> Result<(), Errors> {
         let accounts = ink::env::test::default_accounts::<ink::env::DefaultEnvironment>();
-        ink::env::test::set_caller::<ink::env::DefaultEnvironment>(accounts.alice);
 
+        ink::env::test::set_caller::<ink::env::DefaultEnvironment>(accounts.alice);
         let contract = football_match::GameData::new();
         let get_game_work_is_err = contract.get_game().is_err();
         if get_game_work_is_err == true {
@@ -184,10 +192,38 @@ mod tests {
     fn set_winner() {}
 
     #[test]
-    fn set_particpant_chelsea() {}
+    fn set_particpant_chelsea_is_caller_bob() -> Result<(), Errors> {
+        let accounts = ink::env::test::default_accounts::<ink::env::DefaultEnvironment>();
+
+        ink::env::test::set_caller::<ink::env::DefaultEnvironment>(accounts.alice);
+        let mut contract = football_match::GameData::new();
+
+        ink::env::test::set_caller::<ink::env::DefaultEnvironment>(accounts.bob);
+        let set_particpant_chelsea_is_err = contract.set_particpant_chelsea().is_err();
+        if set_particpant_chelsea_is_err == true {
+            return Err(Errors::DontWork);
+        }
+
+        assert_eq!(contract.particpant_chelsea, accounts.bob);
+        Ok(())
+    }
 
     #[test]
-    fn set_particpant_manchester() {}
+    fn set_particpant_manchester_is_caller_charlie() -> Result<(), Errors> {
+        let accounts = ink::env::test::default_accounts::<ink::env::DefaultEnvironment>();
+
+        ink::env::test::set_caller::<ink::env::DefaultEnvironment>(accounts.alice);
+        let mut contract = football_match::GameData::new();
+
+        ink::env::test::set_caller::<ink::env::DefaultEnvironment>(accounts.charlie);
+        let set_particpant_manchester_is_err = contract.set_particpant_manchester().is_err();
+        if set_particpant_manchester_is_err == true {
+            return Err(Errors::DontWork);
+        }
+
+        assert_eq!(contract.particpant_manchester, accounts.charlie);
+        Ok(())
+    }
 
     #[test]
     fn change_admin() {}
