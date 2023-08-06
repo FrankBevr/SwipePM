@@ -242,5 +242,17 @@ mod tests {
     }
 
     #[test]
-    fn restart_match() {}
+    fn restart_match_sets_winner_team_0() -> Result<(), Errors> {
+        let accounts = ink::env::test::default_accounts::<ink::env::DefaultEnvironment>();
+
+        ink::env::test::set_caller::<ink::env::DefaultEnvironment>(accounts.alice);
+        let mut contract = football_match::GameData::new();
+
+        let restart_match_is_err = contract.restart_match().is_err();
+        if restart_match_is_err == true {
+            return Err(Errors::DontWork);
+        }
+        assert!(contract.winning_team == 0u8);
+        Ok(())
+    }
 }
