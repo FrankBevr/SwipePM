@@ -5,11 +5,16 @@ pub mod traits;
 
 #[ink::contract]
 pub mod football_match {
+    /***********
+     * Imports *
+     ***********/
     use crate::libs::errors::Errors;
     use crate::libs::errors::Errors::*;
     use crate::traits::football_match::FootballMatch;
     use core::prelude::v1::Err;
-
+    /***********
+     *   Data  *
+     ***********/
     #[ink(storage)]
     pub struct GameData {
         pub winning_team: u8,
@@ -19,7 +24,9 @@ pub mod football_match {
         pub particpant_chelsea_is_set: bool,
         pub particpant_manchester_is_set: bool,
     }
-
+    /******************
+     * Initialisation *
+     ******************/
     impl GameData {
         #[ink(constructor)]
         pub fn new() -> Self {
@@ -33,10 +40,29 @@ pub mod football_match {
             }
         }
     }
-
+    /**********
+     * Events *
+     **********/
+    #[ink(event)]
+    pub struct GameState {
+        #[ink(topic)]
+        particpant_chelsea_is_set: bool,
+        #[ink(topic)]
+        particpant_manchester_is_set: bool,
+        #[ink(topic)]
+        winning_team: u8,
+    }
+    /***********
+     * Methods *
+     ***********/
     impl FootballMatch for GameData {
         #[ink(message)]
         fn get_game(&self) -> Result<(), Errors> {
+            self.env().emit_event(GameState {
+                particpant_chelsea_is_set: self.particpant_chelsea_is_set,
+                particpant_manchester_is_set: self.particpant_manchester_is_set,
+                winning_team: self.winning_team,
+            });
             Ok(())
         }
 
