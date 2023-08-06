@@ -42,8 +42,7 @@ pub mod football_match {
 
         #[ink(message)]
         fn set_winner(&mut self, number: u8) -> Result<(), Errors> {
-            let caller = Self::env().caller();
-            if caller != self.admin {
+            if Self::env().caller() != self.admin {
                 return Err(DontWork);
             }
             self.winning_team = number;
@@ -65,6 +64,29 @@ pub mod football_match {
             }
             self.particpant_manchester = Self::env().caller();
             self.particpant_manchester_is_set = true;
+            Ok(())
+        }
+
+        #[ink(message)]
+        fn change_admin(&mut self, new_admin: AccountId) -> Result<(), Errors> {
+            if Self::env().caller() != self.admin {
+                return Err(DontWork);
+            }
+            self.admin = new_admin;
+            Ok(())
+        }
+
+        #[ink(message)]
+        fn restart_match(&mut self) -> Result<(), Errors> {
+            if Self::env().caller() != self.admin {
+                return Err(DontWork);
+            }
+            self.winning_team = 0u8;
+            self.admin = self.admin;
+            self.particpant_chelsea = AccountId::from([0xFF as u8; 32]);
+            self.particpant_manchester = AccountId::from([0xFF as u8; 32]);
+            self.particpant_chelsea_is_set = false;
+            self.particpant_manchester_is_set = false;
             Ok(())
         }
     }
