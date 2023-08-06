@@ -5,4 +5,7 @@ use scale::Encode;
 #[cfg_attr(feature = "std", derive(scale_info::TypeInfo))]
 pub enum Errors {
     DontWork,
+    OnlyAdmin,
+    ParticipantChelseaIsAlreadySet,
+    ParticipantManchesterIsAlreadySet,
 }

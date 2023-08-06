@@ -5,8 +5,8 @@ pub mod traits;
 
 #[ink::contract]
 pub mod football_match {
-    use crate::football_match::Errors::DontWork;
     use crate::libs::errors::Errors;
+    use crate::libs::errors::Errors::*;
     use crate::traits::football_match::FootballMatch;
     use core::prelude::v1::Err;
 
@@ -43,7 +43,7 @@ pub mod football_match {
         #[ink(message)]
         fn set_winner(&mut self, number: u8) -> Result<(), Errors> {
             if Self::env().caller() != self.admin {
-                return Err(DontWork);
+                return Err(Errors::OnlyAdmin);
             }
             self.winning_team = number;
             Ok(())
@@ -51,7 +51,7 @@ pub mod football_match {
         #[ink(message)]
         fn set_particpant_chelsea(&mut self) -> Result<(), Errors> {
             if self.particpant_chelsea_is_set == true {
-                return Err(DontWork);
+                return Err(ParticipantChelseaIsAlreadySet);
             }
             self.particpant_chelsea = Self::env().caller();
             self.particpant_chelsea_is_set = true;
@@ -60,7 +60,7 @@ pub mod football_match {
         #[ink(message)]
         fn set_particpant_manchester(&mut self) -> Result<(), Errors> {
             if self.particpant_manchester_is_set == true {
-                return Err(DontWork);
+                return Err(ParticipantManchesterIsAlreadySet);
             }
             self.particpant_manchester = Self::env().caller();
             self.particpant_manchester_is_set = true;
@@ -70,7 +70,7 @@ pub mod football_match {
         #[ink(message)]
         fn change_admin(&mut self, new_admin: AccountId) -> Result<(), Errors> {
             if Self::env().caller() != self.admin {
-                return Err(DontWork);
+                return Err(OnlyAdmin);
             }
             self.admin = new_admin;
             Ok(())
@@ -79,7 +79,7 @@ pub mod football_match {
         #[ink(message)]
         fn restart_match(&mut self) -> Result<(), Errors> {
             if Self::env().caller() != self.admin {
-                return Err(DontWork);
+                return Err(OnlyAdmin);
             }
             self.winning_team = 0u8;
             self.admin = self.admin;
