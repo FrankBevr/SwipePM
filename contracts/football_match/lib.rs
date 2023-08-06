@@ -147,8 +147,8 @@ mod tests {
     #[test]
     fn winning_team_is_0() {
         let accounts = ink::env::test::default_accounts::<ink::env::DefaultEnvironment>();
-        ink::env::test::set_caller::<ink::env::DefaultEnvironment>(accounts.alice);
 
+        ink::env::test::set_caller::<ink::env::DefaultEnvironment>(accounts.alice);
         let contract = football_match::GameData::new();
         assert!(contract.winning_team == 0u8);
     }
@@ -156,8 +156,8 @@ mod tests {
     #[test]
     fn particpant_is_empty() {
         let accounts = ink::env::test::default_accounts::<ink::env::DefaultEnvironment>();
-        ink::env::test::set_caller::<ink::env::DefaultEnvironment>(accounts.alice);
 
+        ink::env::test::set_caller::<ink::env::DefaultEnvironment>(accounts.alice);
         let contract = football_match::GameData::new();
         let empty = AccountId::from([0xFF as u8; 32]);
         assert!(contract.particpant_chelsea == empty);
@@ -166,8 +166,8 @@ mod tests {
     #[test]
     fn admin_is_to_caller_alice() {
         let accounts = ink::env::test::default_accounts::<ink::env::DefaultEnvironment>();
-        ink::env::test::set_caller::<ink::env::DefaultEnvironment>(accounts.alice);
 
+        ink::env::test::set_caller::<ink::env::DefaultEnvironment>(accounts.alice);
         let contract = football_match::GameData::new();
         assert!(contract.admin == accounts.alice);
     }
@@ -226,7 +226,20 @@ mod tests {
     }
 
     #[test]
-    fn change_admin() {}
+    fn change_admin_is_changeable() -> Result<(), Errors> {
+        let accounts = ink::env::test::default_accounts::<ink::env::DefaultEnvironment>();
+
+        ink::env::test::set_caller::<ink::env::DefaultEnvironment>(accounts.alice);
+        let mut contract = football_match::GameData::new();
+
+        let change_admin_is_err = contract.change_admin(accounts.django).is_err();
+        if change_admin_is_err == true {
+            return Err(Errors::DontWork);
+        }
+
+        assert!(contract.admin != accounts.alice);
+        Ok(())
+    }
 
     #[test]
     fn restart_match() {}
