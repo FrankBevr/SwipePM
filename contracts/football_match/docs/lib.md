@@ -83,15 +83,100 @@ The contracts implentent the following function for its Data
 ### Deploy 
 1. In Terminal A run `cargo substrate-contracts-node --dev`
 2. In Terminal B run `cargo contract instantiate --suri //Alice -x`
-3. Copy the deployed contract Addreess.
+3. Copy the deployed contract Addreess & codehash
 
 ### Frontend
+
+#### Call Chain
 1. In Terminal C run `cd ~` to go to your home Folder.
 2. run `mkdir frontend` to create a frontendfolder
 3. run `cd frontend` to change directory.
 4. make checks
    - `node --version`: version 18 should be good
    - `npm --version`: 9.6 should be good.
+   - `code --version`: 1.8 should be good
 5. run `npm init -y`
-6. run `npm install @polkadot/api @polkadot/api-contract`
-7. w.i.p.
+6. run `npm install @polkadot/api @polkadot/api-contract -D ts-node typescript`
+7. run `touch  call-substrate-contracts-node.ts`
+8. code call-substrate-contracts-node.ts
+9. paste the following in
+    ```text
+    import { WsProvider, ApiPromise } from '@polkadot/api'
+
+    async function main(){
+        const wsProvider = new WsProvider()
+        const api = await ApiPromise.create({provider: wsProvider})
+        console.log(`The runtime version is the following ${api.genesisHash}`)
+        process.exit(1)
+    }
+    main()
+    ```
+10. run `npx ts-node ./call-substrate-contracts-node.ts`  
+   > The output should be something like this:  
+   > The runtimeversion is the following 0xcdb32a84e7bda0c3068b073089c6ec636f75a664939b878157a8776005a60af8  
+11. Lets make query
+12. overpaste the following in
+     ```text
+    import { WsProvider, ApiPromise } from '@polkadot/api'
+    async function main(){
+        const wsProvider = new WsProvider()
+        const api = await ApiPromise.create({provider: wsProvider})
+        console.log(api.query)
+        process.exit(1)
+    }
+    main()
+    ```
+13. Now you see all that stuff, which is queryable. There is also a field. contracts. we will call contract.
+14. overpaste the following in
+     ```text
+    import { WsProvider, ApiPromise } from '@polkadot/api'
+    async function main(){
+        const wsProvider = new WsProvider()
+        const api = await ApiPromise.create({provider: wsProvider})
+        console.log(api.query.contracts)
+        process.exit(1)
+    }
+    main()
+    ```
+15. run `npx ts-node ./call-substrate-contracts-node.ts`  
+16. Now we see clearer that there is a function, which calls contractInfoOf. Lets use it.
+17. overpaste the following in
+     ```text
+     import { WsProvider, ApiPromise } from '@polkadot/api'
+
+     const contractAddress = "PASTE IN PREVIOUSLY COPIED CONTRACT ADDRESS"
+     const codeHash = "PASTE IN PREVIOUSLY COPIED CODEHASH"
+
+     async function main() {
+       const wsProvider = new WsProvider()
+       const api = await ApiPromise.create({ provider: wsProvider })
+       const queryContract = await api.query.contracts.contractInfoOf(contractAddress)
+       const queryContractHumanVersion: any = queryContract.toHuman()
+       console.log(queryContractHumanVersion)
+       const queryCodeHash = queryContractHumanVersion!["codeHash"] as any
+       if (queryCodeHash === codeHash) {
+         console.log("YES, thats actually our deployed contract")
+       }
+       process.exit(1)
+     }
+     ```
+18. run `npx ts-node ./call-substrate-contracts-node.ts`  
+    > The output should be something like this:  
+       ```text
+       {
+         trieId: '0xb81b26d0e34675dc667529bfccc57090f09c6e659f1a0a3418fb4a0d278b3665',
+         depositAccount: '5GGpNGyDAzPpoxiFxmcmNQ5zJfvU54sPdSpQhVao7bz9xeMk',
+         codeHash: '0x47538cdcab4785f60496e3c44dd239c868486fea6e94f121b81cf9779447ee50',
+         storageBytes: '99',
+         storageItems: '1',
+         storageByteDeposit: '495,000,000',
+         storageItemDeposit: '100,000,000,000',
+         storageBaseDeposit: '101,765,000,000'
+       }
+       YES, thats actually our deployed contract
+       ```
+#### Call Contract 
+1. w.i.p
+
+#### Call Contract on Frontend
+1. w.i.p
