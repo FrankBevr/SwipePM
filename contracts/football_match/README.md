@@ -1,3 +1,7 @@
+> ❗ see state @ submission deadline use git checkout 5327dbe
+
+> run `cargo doc --open` to see the same as the README.md in blue with extras.
+
 # football_match
 
 `football_match` is a small smart contract.\
