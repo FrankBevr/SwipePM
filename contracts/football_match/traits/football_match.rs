@@ -1,4 +1,6 @@
 use crate::libs::errors::Errors;
+use core::prelude::rust_2018::derive;
+use core::result::Result;
 use ink::primitives::AccountId;
 
 #[ink::trait_definition]
