@@ -215,7 +215,98 @@ The contracts implentent the following function for its Data
 
 
 #### Call Contract 
-1. w.i.p
+
+1. run `touch  call-contract.ts`
+2. copy the metadata in the fronent folder. The metadata is called `football_match.json`. You can find it under `./target/ink` in the football_match folder, where the rust code sits.
+3. run `npx tsc --init`
+4. run `code tsconfig.json`
+5. uncomment line which says resolveJsonModule
+6. close the editor
+7. run `code call-contract.ts`
+8. paste the following in
+     <details>
+       <summary>show code</summary>   
+
+   ```ts
+   import { WsProvider, ApiPromise } from '@polkadot/api'
+   import { ContractPromise } from '@polkadot/api-contract'
+   import metadata from './football_match.json'
+   
+   async function main() {
+     const wsProvider = new WsProvider()
+     const api = await ApiPromise.create({ provider: wsProvider })
+   
+     const address = "PASTE YOUR COPIED CONTRACT ADDRESS";
+     const contract = new ContractPromise(api, metadata, address);
+     console.log(contract)
+
+     process.exit(1)
+   }
+   main()
+   ```
+
+   </details>
+
+8. run `npx ts-node call-contract.ts`
+9. There you can see a bunch of stuff. And somehwere you see stuff like `footballMatch::getGame`. Hehe thats great. Hehe thats great. Next one.
+10. Paste the following in
+     <details>
+       <summary>show code</summary>   
+
+       ```ts
+       import { WsProvider, ApiPromise, Keyring } from '@polkadot/api'
+       import { ContractPromise } from '@polkadot/api-contract'
+       import metadata from './football_match.json'
+       import { BN, BN_ONE } from "@polkadot/util";
+       
+       async function main() {
+         const wsProvider = new WsProvider()
+         const api = await ApiPromise.create({ provider: wsProvider })
+       
+         const address = "PASTE YOUR COPIED CONTRACT ADDRESS";
+         const contract = new ContractPromise(api, metadata, address);
+       
+         const keyring = new Keyring({ type: "sr25519" });
+         const bob = keyring.addFromUri("//Bob", { name: "Bob" });
+       
+         const storageDepositLimit = null;
+         const MAX_CALL_WEIGHT = new BN(5_000_000_000_000).isub(BN_ONE);
+         const PROOFSIZE = new BN(1_000_000);
+       
+         const { gasRequired } = await contract.query[
+           "footballMatch::setParticpantChelsea"
+         ](bob.address, {
+           gasLimit: api?.registry.createType("WeightV2", {
+             refTime: MAX_CALL_WEIGHT,
+             proofSize: PROOFSIZE,
+           }) as any,
+           storageDepositLimit,
+         });
+       
+         const gasLimit = api?.registry.createType(
+           "WeightV2",
+           gasRequired,
+         ) as any;
+       
+         await contract.tx["footballMatch::setParticpantChelsea"]({
+           gasLimit,
+           storageDepositLimit,
+         }).signAndSend(bob, async (res) => {
+           if (res.isInBlock) {
+             console.log("Bob is has betted on chelsea")
+             process.exit(1)
+           }
+         });
+       }
+       main()
+       ```
+
+   </details>
+
+11. run `npx ts-node call-contract.ts`
+     > The output should be something like this:  
+     > Bob is has betted on chelsea 
+12. Hurei that how you interact with it. Change "footballMatch::setParticpantChelsea" to whatever function you like. Run the previous code example to see what is available and copy the naming correctly. Important is the correct gas Calculation and setting the weights. Kind of a pitfall. Now you know and can google correctly.
 
 #### Call Contract on Frontend
 1. w.i.p
