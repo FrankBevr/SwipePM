@@ -11,7 +11,7 @@ It has the following fields:
 # Examples
 
 ```
-use football_match::football_match::GameData;
+use football_match::impls::football_match::football_match::GameData;
 use ink::primitives::AccountId;
 
 let game = GameData {
