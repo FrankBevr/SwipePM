@@ -1,6 +1,22 @@
 > ❗ see state @ submission deadline use git checkout 5327dbe
 
-> run `cargo doc --open` to see the same as the README.md in blue with extras.
+> run `cargo doc --open` to see the same as the README.md with extras.
+
+<div align="center">
+<img src="./../../Logo.jpg" alt="logo" width="80" height="80" />
+</div>
+
+<h3 align="center">SwipePM - Ink Contract</h3>
+  <p align="center">
+    A social competition Sports Prediction App with Zeitgeist
+    <br />
+    <a href="https://www.figma.com/file/V1W0wKDqXxGYrEH5TFfzJL/SwipePM?type=design&node-id=0%3A1&mode=design&t=cq5XPPpWLxi543Po-1" name="Figma">Figma</a>
+    ·
+    <a href="https://youtu.be/pBcYVFuj9M0">Youtube</a>
+    ·
+    <a href="https://github.com/FrankBevr/SwipePM">Code</a>
+  </p>
+</div>
 
 # football_match
 
@@ -81,7 +97,7 @@ The contracts implentent the following function for its Data
   - **[Call Contract on frontend](#call-contract-on-frontend)**
 
 <details>
-<summary>See more</summary>
+<summary>Expand Me</summary>
    
    ### Compile
    
