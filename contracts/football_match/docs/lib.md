@@ -257,4 +257,94 @@ The contracts implentent the following function for its Data
 12. Hurei that how you interact with it. Change "footballMatch::setParticpantChelsea" to whatever function you like. Run the previous code example to see what is available and copy the naming correctly. Important is the correct gas Calculation and setting the weights. Kind of a pitfall. Now you know and can google correctly.
 
 #### Call Contract on Frontend
-1. w.i.p
+1. run `touch index.html`
+2. npm install -D vite
+3. code `index.html`
+4. Paste the following in
+   ```text
+
+   <html>
+    <head></head>
+    <body>
+      <p>Hello world</p>
+      <script type="module" src="./call-contract.ts"></script>
+    </body>
+   </html>
+
+   ```
+5. run `npx vite `
+6. modify callContract.ts, overpase the following.
+   ```text
+
+   import { WsProvider, ApiPromise, Keyring } from '@polkadot/api'
+   import { ContractPromise } from '@polkadot/api-contract'
+   import metadata from './football_match.json'
+   import { BN, BN_ONE } from "@polkadot/util";
+
+   async function main() {
+     console.log("hhelo")
+     const wsProvider = new WsProvider()
+     const api = await ApiPromise.create({ provider: wsProvider })
+
+     const address = "5D6DbcxLogP2ThyaKvaHP1j2BdM9x76xX7QVT1uTcXoCRiEG";
+     const contract = new ContractPromise(api, metadata, address);
+
+     const keyring = new Keyring({ type: "sr25519" });
+     const bob = keyring.addFromUri("//Bob", { name: "Bob" });
+
+     const storageDepositLimit = null;
+     const MAX_CALL_WEIGHT = new BN(5_000_000_000_000).isub(BN_ONE);
+     const PROOFSIZE = new BN(1_000_000);
+
+     const { gasRequired } = await contract.query[
+       "footballMatch::setParticpantChelsea"
+     ](bob.address, {
+       gasLimit: api?.registry.createType("WeightV2", {
+         refTime: MAX_CALL_WEIGHT,
+         proofSize: PROOFSIZE,
+       }) as any,
+       storageDepositLimit,
+     });
+
+     const gasLimit = api?.registry.createType(
+       "WeightV2",
+       gasRequired,
+     ) as any;
+
+     await contract.tx["footballMatch::setParticpantChelsea"]({
+       gasLimit,
+       storageDepositLimit,
+     }).signAndSend(bob, async (res) => {
+       if (res.isInBlock) {
+         console.log("Bob is has betted on chelsea")
+       }
+     });
+   }
+   main()
+
+   ```
+7. open up localhost:5173 and "tada". Thats it.
+8. if you want to make on Button click, then just overpaste the index.html and add in ./call-contract.ts an export statement.
+
+   ```text
+
+   <html>
+   <head></head>
+   <body>
+     <p>Hello world</p>
+     <button id="callMainButton">Call call-contract</button>
+     <script type="module">
+       import { main } from './call-contract.ts';
+       const callMainButton = document.getElementById('callMainButton');
+       callMainButton.addEventListener('click', async () => {
+         await main();
+       });
+     </script>
+   </body>
+   </html>
+
+   ```
+
+9. Now You can make button clicky. 
+10. Have fun with the swipePM Contract.   
+   I felt the need for a quick rundown of how to use it.
