@@ -8,6 +8,8 @@ ENV PATH="/root/.cargo/bin:${PATH}"
 ENV PATH="/root/.local/share/bob/nvim-bin/:${PATH}"
 # Add Nu to PatH
 ENV PATH="/root/.local/share/nu:${PATH}"
+# Add Rtx to PatH
+ENV PATH="/usr/local/cargo/bin/:${PATH}"
 
 ##################
 # Install basics #
@@ -37,10 +39,10 @@ RUN  apt-get update -y && \
 # Install Frank Dev Utils #
 ###########################
 # Inspiration from YT Guy - Boilerplate                       : https://github.com/0atman/noboilerplate/blob/main/scripts/20-rust-userland.md#oxidise-your-life-1
-# Add Neovim(AstroVim) via bob-nvim & setup starship for bash : https://astronvim.com/
+# Add Neovim (AstroVim)                                       : https://astronvim.com/
 # Add zellij                                                  : https://zellij.dev/documentation/
 # Add nu shell                                                : https://www.nushell.sh/book/coming_from_bash.html
-# Setup NuShell with starship                                 : https://www.nushell.sh/book/configuration.html https://starship.rs/guide/
+# Add starship prompt                                         : https://www.nushell.sh/book/configuration.html https://starship.rs/guide/
 
 RUN cargo install cargo-info ripgrep exa bat irust bacon \
     gitui rtx-cli starship bob-nvim kondo aichat && \
@@ -69,8 +71,24 @@ RUN cargo install cargo-info ripgrep exa bat irust bacon \
     echo "source-env ~/.cache/starship/init.nu" >> ~/.config/nushell/env.nu && \
     echo "\$env.config = { show_banner:false, edit_mode: nvim }" >> ~/.config/nushell/config.nu && \
     echo 'eval "$(rtx activate bash)"' >> ~/.bashrc &&\
-    rtx install node@latest && rtx use node@latest &&\
+    rtx install node@20.5 && rtx use --global node@20.5 &&\
+    rtx activate nu > /root/.config/nushell/rtx.nu &&\
+    echo source "/root/.config/nushell/rtx.nu" >> ~/.config/nushell/config.nu &&\
+    curl -fsSL https://deb.nodesource.com/setup_20.x | bash - &&\
+    apt-get install -y nodejs &&\
     apt-get clean && rm -rf /var/lib/apt/lists/*
 
-# Start Zellij  
-CMD ["zellij", "options", "--default-shell", "nu", "--session-name", "Rusty"]
+################################
+# Setup Quickstart for SwipePM #
+################################
+# Add Quickstart Zellij Layout : https://gist.github.com/FrankBevr/b6dc6ac2a7f8424fb96d65adf35dc7c6 
+
+RUN  curl -L -o zellij_swipepm.kdl https://gist.github.com/FrankBevr/b6dc6ac2a7f8424fb96d65adf35dc7c6/raw &&\
+     npm install -g vite
+     
+EXPOSE 9944 5173 
+#########################
+# Default Start Command #
+#########################
+
+CMD ["zellij", "--layout", "./zellij_swipepm.kdl", "--session", "Rusty"]
