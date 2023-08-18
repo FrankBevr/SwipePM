@@ -8,6 +8,7 @@ import {
 async function connect_account(index: number) {
   store.allInjected = await web3Enable("my cool dapp");
   store.allAccounts = await web3Accounts();
+  console.log(store.allAccounts)
   store.selectedAccount = store.allAccounts[index];
   store.injector = await web3FromAddress(store.selectedAccount.address);
   store.isConntected = true;
@@ -34,7 +35,7 @@ async function connect_account(index: number) {
     <br />
     <div><strong>Now connect</strong>, mister Admin.</div>
     </p>
-    <button @click="connect_account(3)"
+    <button @click="connect_account(0)"
       class="bg-#CCCCCC text-2xl p-5 b-rd-3 hover:bg-#ffffff outline outline-1 font-light border-none">
       Connect
     </button>

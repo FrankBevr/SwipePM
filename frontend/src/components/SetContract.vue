@@ -4,7 +4,7 @@ import { store } from "../store/store";
 let input_value = ref('')
 const submitForm = () => {
   store.contractAddress = input_value.value;
-  console.log('Saved value:', store.contractAddress);
+  console.log('Saved Contract Address is the following:\n', store.contractAddress);
 };
 </script>
 <template>

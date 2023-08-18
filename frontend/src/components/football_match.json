@@ -1,8 +1,8 @@
 {
   "source": {
-    "hash": "0x712944c6517585122dc53767923904b6d973a8f419e3a554bc335ba322a0579f",
+    "hash": "0xe6989fc581b6a627ea32f06c0082a19abb9f9cf37f394a803578a70f66d5ce86",
     "language": "ink! 4.2.1",
-    "compiler": "rustc 1.68.0-nightly",
+    "compiler": "rustc 1.70.0-nightly",
     "build_info": {
       "build_mode": "Debug",
       "cargo_contract_version": "3.0.1",
@@ -20,13 +20,14 @@
       "Tom, Frank"
     ]
   },
-  "image": null,
   "spec": {
     "constructors": [
       {
         "args": [],
         "default": false,
-        "docs": [],
+        "docs": [
+          "Initialise GameData which implentents football_match."
+        ],
         "label": "new",
         "payable": false,
         "returnType": {
@@ -34,12 +35,14 @@
             "ink_primitives",
             "ConstructorResult"
           ],
-          "type": 3
+          "type": 4
         },
         "selector": "0x9bae9d5e"
       }
     ],
-    "docs": [],
+    "docs": [
+      " The football_match contract"
+    ],
     "environment": {
       "accountId": {
         "displayName": [
@@ -79,13 +82,55 @@
         "type": 12
       }
     },
-    "events": [],
+    "events": [
+      {
+        "args": [
+          {
+            "docs": [],
+            "indexed": true,
+            "label": "particpant_chelsea_is_set",
+            "type": {
+              "displayName": [
+                "bool"
+              ],
+              "type": 3
+            }
+          },
+          {
+            "docs": [],
+            "indexed": true,
+            "label": "particpant_manchester_is_set",
+            "type": {
+              "displayName": [
+                "bool"
+              ],
+              "type": 3
+            }
+          },
+          {
+            "docs": [],
+            "indexed": true,
+            "label": "winning_team",
+            "type": {
+              "displayName": [
+                "u8"
+              ],
+              "type": 0
+            }
+          }
+        ],
+        "docs": [
+          "Represents an emitted event when a get_game is called."
+        ],
+        "label": "GameState"
+      }
+    ],
     "lang_error": {
       "displayName": [
         "ink",
         "LangError"
       ],
-      "type": 5
+      "type": 6
     },
     "messages": [
       {
@@ -100,7 +145,7 @@
             "ink",
             "MessageResult"
           ],
-          "type": 6
+          "type": 7
         },
         "selector": "0x48c4284a"
       },
@@ -126,7 +171,7 @@
             "ink",
             "MessageResult"
           ],
-          "type": 8
+          "type": 7
         },
         "selector": "0x2ff46c9c"
       },
@@ -136,13 +181,13 @@
         "docs": [],
         "label": "FootballMatch::set_particpant_chelsea",
         "mutates": true,
-        "payable": false,
+        "payable": true,
         "returnType": {
           "displayName": [
             "ink",
             "MessageResult"
           ],
-          "type": 8
+          "type": 7
         },
         "selector": "0xa583e4e1"
       },
@@ -152,15 +197,57 @@
         "docs": [],
         "label": "FootballMatch::set_particpant_manchester",
         "mutates": true,
+        "payable": true,
+        "returnType": {
+          "displayName": [
+            "ink",
+            "MessageResult"
+          ],
+          "type": 7
+        },
+        "selector": "0x8ac3e84a"
+      },
+      {
+        "args": [
+          {
+            "label": "new_admin",
+            "type": {
+              "displayName": [
+                "AccountId"
+              ],
+              "type": 1
+            }
+          }
+        ],
+        "default": false,
+        "docs": [],
+        "label": "FootballMatch::change_admin",
+        "mutates": true,
         "payable": false,
         "returnType": {
           "displayName": [
             "ink",
             "MessageResult"
           ],
-          "type": 8
+          "type": 7
         },
-        "selector": "0x8ac3e84a"
+        "selector": "0xbe636b24"
+      },
+      {
+        "args": [],
+        "default": false,
+        "docs": [],
+        "label": "FootballMatch::restart_match",
+        "mutates": true,
+        "payable": false,
+        "returnType": {
+          "displayName": [
+            "ink",
+            "MessageResult"
+          ],
+          "type": 7
+        },
+        "selector": "0x8f79372b"
       }
     ]
   },
@@ -176,7 +263,16 @@
                   "ty": 0
                 }
               },
-              "name": "winner"
+              "name": "winning_team"
+            },
+            {
+              "layout": {
+                "leaf": {
+                  "key": "0x00000000",
+                  "ty": 1
+                }
+              },
+              "name": "admin"
             },
             {
               "layout": {
@@ -195,6 +291,24 @@
                 }
               },
               "name": "particpant_manchester"
+            },
+            {
+              "layout": {
+                "leaf": {
+                  "key": "0x00000000",
+                  "ty": 3
+                }
+              },
+              "name": "particpant_chelsea_is_set"
+            },
+            {
+              "layout": {
+                "leaf": {
+                  "key": "0x00000000",
+                  "ty": 3
+                }
+              },
+              "name": "particpant_manchester_is_set"
             }
           ],
           "name": "GameData"
@@ -247,12 +361,20 @@
       "id": 3,
       "type": {
         "def": {
+          "primitive": "bool"
+        }
+      }
+    },
+    {
+      "id": 4,
+      "type": {
+        "def": {
           "variant": {
             "variants": [
               {
                 "fields": [
                   {
-                    "type": 4
+                    "type": 5
                   }
                 ],
                 "index": 0,
@@ -261,7 +383,7 @@
               {
                 "fields": [
                   {
-                    "type": 5
+                    "type": 6
                   }
                 ],
                 "index": 1,
@@ -273,11 +395,11 @@
         "params": [
           {
             "name": "T",
-            "type": 4
+            "type": 5
           },
           {
             "name": "E",
-            "type": 5
+            "type": 6
           }
         ],
         "path": [
@@ -286,7 +408,7 @@
       }
     },
     {
-      "id": 4,
+      "id": 5,
       "type": {
         "def": {
           "tuple": []
@@ -294,7 +416,7 @@
       }
     },
     {
-      "id": 5,
+      "id": 6,
       "type": {
         "def": {
           "variant": {
@@ -313,48 +435,6 @@
       }
     },
     {
-      "id": 6,
-      "type": {
-        "def": {
-          "variant": {
-            "variants": [
-              {
-                "fields": [
-                  {
-                    "type": 7
-                  }
-                ],
-                "index": 0,
-                "name": "Ok"
-              },
-              {
-                "fields": [
-                  {
-                    "type": 5
-                  }
-                ],
-                "index": 1,
-                "name": "Err"
-              }
-            ]
-          }
-        },
-        "params": [
-          {
-            "name": "T",
-            "type": 7
-          },
-          {
-            "name": "E",
-            "type": 5
-          }
-        ],
-        "path": [
-          "Result"
-        ]
-      }
-    },
-    {
       "id": 7,
       "type": {
         "def": {
@@ -363,7 +443,7 @@
               {
                 "fields": [
                   {
-                    "type": 0
+                    "type": 8
                   }
                 ],
                 "index": 0,
@@ -372,7 +452,7 @@
               {
                 "fields": [
                   {
-                    "type": 4
+                    "type": 6
                   }
                 ],
                 "index": 1,
@@ -384,11 +464,11 @@
         "params": [
           {
             "name": "T",
-            "type": 0
+            "type": 8
           },
           {
             "name": "E",
-            "type": 4
+            "type": 6
           }
         ],
         "path": [
@@ -405,7 +485,7 @@
               {
                 "fields": [
                   {
-                    "type": 9
+                    "type": 5
                   }
                 ],
                 "index": 0,
@@ -414,7 +494,7 @@
               {
                 "fields": [
                   {
-                    "type": 5
+                    "type": 9
                   }
                 ],
                 "index": 1,
@@ -426,11 +506,11 @@
         "params": [
           {
             "name": "T",
-            "type": 9
+            "type": 5
           },
           {
             "name": "E",
-            "type": 5
+            "type": 9
           }
         ],
         "path": [
@@ -445,38 +525,33 @@
           "variant": {
             "variants": [
               {
-                "fields": [
-                  {
-                    "type": 4
-                  }
-                ],
                 "index": 0,
-                "name": "Ok"
+                "name": "DontWork"
               },
               {
-                "fields": [
-                  {
-                    "type": 4
-                  }
-                ],
                 "index": 1,
-                "name": "Err"
+                "name": "OnlyAdmin"
+              },
+              {
+                "index": 2,
+                "name": "ParticipantChelseaIsAlreadySet"
+              },
+              {
+                "index": 3,
+                "name": "ParticipantManchesterIsAlreadySet"
+              },
+              {
+                "index": 4,
+                "name": "OnlyOneOrTwo"
               }
             ]
           }
         },
-        "params": [
-          {
-            "name": "T",
-            "type": 4
-          },
-          {
-            "name": "E",
-            "type": 4
-          }
-        ],
         "path": [
-          "Result"
+          "football_match",
+          "libs",
+          "errors",
+          "Errors"
         ]
       }
     },
