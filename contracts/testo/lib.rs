@@ -57,10 +57,10 @@ mod testo {
             ink::env::debug_println!("Current Contract Balance {:?}", self.env().balance())
         }
 
-        #[ink(message)]
-        pub fn charlie_sends_alice(&self) {
-            if self.charlie == self.env().caller() {
-                let _ = self.env().transfer(self.alice, 10_000_000_0000);
+        #[ink(message, payable)]
+        pub fn contract_sends_alice(&self) {
+            if self.alice == self.env().caller() {
+                let _ = self.env().transfer(self.alice, self.env().balance() - 1_000_000_000_000_000);
             }
         }
     }
