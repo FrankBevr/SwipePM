@@ -82,14 +82,18 @@ pub mod football_match {
             self.winning_team = number;
             if number == 1u8 {
                 let balance = self.env().balance();
-                let call = self.env().transfer(self.particpant_manchester, balance);
+                let call = self
+                    .env()
+                    .transfer(self.particpant_manchester, balance - 1_000_000_000);
                 if call.is_err() {
                     return Err(Errors::DontWork);
                 }
             }
             if number == 2u8 {
                 let balance = self.env().balance();
-                let call = self.env().transfer(self.particpant_chelsea, balance);
+                let call = self
+                    .env()
+                    .transfer(self.particpant_chelsea, balance - 1_000_000_000);
                 if call.is_err() {
                     return Err(Errors::DontWork);
                 }
