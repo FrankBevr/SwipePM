@@ -18,7 +18,7 @@
 
 ### Screenshot
 
-<img src="https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExZDN1b20xN3Z5NzFpMW96b2tzdG9jM2FsN3d1YnUxN3RyZ2Roa2txMyZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/Hmyc0Ii8FaaIdjsxD9/giphy.gif" alt="logo" />
+<img src="https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExOXhmcTFjY2ZhZzVvdTdheHhvZjVhOGVqcG05Zms3MXJ2a2Vvb25zOSZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/QpJtL7s53HVVn11yBi/giphy.gif" alt="logo" />
 
 ### Summary
 
