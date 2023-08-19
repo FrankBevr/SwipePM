@@ -20,15 +20,15 @@
 
 <img src="https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExZDN1b20xN3Z5NzFpMW96b2tzdG9jM2FsN3d1YnUxN3RyZ2Roa2txMyZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/Hmyc0Ii8FaaIdjsxD9/giphy.gif" alt="logo" />
 
-### Description
+### Summary
 
-Short Summary:
-**A social competition Sports Prediction App with Zeitgeist. SwipePM is a feature of the Sports Prediction Platform Sportsgeist.**
+A social competition Sports Prediction App with Zeitgeist.  
+SwipePM is a feature of the Sports Prediction Platform Sportsgeist.
 
-Summary:
-Sportsgeist is a social competitive peer-to-peer (P2P) Prediction app that revolutionizes the traditional sports betting & prediction experience by offering users the experience to challenge other users, create Teams with your Friends, create Betting Tournaments or create Prediction Pools to bet on collectively. Unlike conventional sports betting, where users are isolated from each other and just place a bet and wait or sell, Sportsgeist empowers a more social, competitive and fun Sports betting experience.
+### Quickstart
 
-This approach unleashes the power of free markets between users, fostering new opportunities for all participants while enabling them to directly connect with one another. By harnessing the cutting-edge benefits of Web3 technology and the user-friendliness of Web2 technology, Sportsgeist envisions the best of both worlds. This innovative platform will fundamentally change how people invest in their sports knowledge, marking an evolution of Sports Betting to a experience which unleashes the emotions of Sports and why we love it so much.
+1. `npm install` in `./frontend` and `cargo contract build` in `./contracts/football_match`
+2. `docker run -it -v ~/SwipePM/:/ink -p 9944:9944 -p 5173:5173 frankbevr/swipepm-quickstart`
 
 ### Team
 
@@ -37,6 +37,15 @@ This approach unleashes the power of free markets between users, fostering new o
 | Patrik Bauer  | daredevil3x7 | @daredevil3x7 | `cryyptop@gmail.com`   |
 | Frank Dierolf | frankbevr    | @frankbevr    | `frank_dierolf@web.de` |
 | Tom           | -            | @morkeltry    | -                      |
+
+<details>
+<summary>More</summary>
+
+### Description
+
+Sportsgeist is a social competitive peer-to-peer (P2P) Prediction app that revolutionizes the traditional sports betting & prediction experience by offering users the experience to challenge other users, create Teams with your Friends, create Betting Tournaments or create Prediction Pools to bet on collectively. Unlike conventional sports betting, where users are isolated from each other and just place a bet and wait or sell, Sportsgeist empowers a more social, competitive and fun Sports betting experience.
+
+This approach unleashes the power of free markets between users, fostering new opportunities for all participants while enabling them to directly connect with one another. By harnessing the cutting-edge benefits of Web3 technology and the user-friendliness of Web2 technology, Sportsgeist envisions the best of both worlds. This innovative platform will fundamentally change how people invest in their sports knowledge, marking an evolution of Sports Betting to a experience which unleashes the emotions of Sports and why we love it so much.
 
 ### Track - ink! Smart Contracts
 
@@ -63,3 +72,5 @@ As we continue to grow and build a **robust user base**, we will progressively *
 | Backend                                                  | Frontend                                                                              |
 | :------------------------------------------------------- | :------------------------------------------------------------------------------------ |
 | **Rust**, ink!, cargo-contract, substrate-contracts-node | **Typescript**, Vue, UnoCSS, polkadot/api, polkadot/contract, polkadot/extension-dapp |
+
+</details>
