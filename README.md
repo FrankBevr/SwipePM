@@ -43,36 +43,36 @@ SwipePM is a MVP of Sportsgeist.
 
 ### Description
 
-Sportsgeist is a social competition sports betting application.
-Sportsgeist founder is Patrik.
-A minimal valuable product is SwipePM.
-SwipePM allows you to bet on Team A or on Team B.
-An admin declares the winner.
-The winner get all the funds.
-SwipePM utilizes ink!.
-Zeitgeist includes the smart contract pallet and allows custom Betting Logic via ink.
+Sportsgeist is a social competition sports betting application.  
+Sportsgeist founder is Patrik.  
+A minimal valuable product is SwipePM.  
+SwipePM allows you to bet on Team A or on Team B.  
+An admin declares the winner.  
+The winner get all the funds.  
+SwipePM utilizes ink!.  
+Zeitgeist includes the smart contract pallet and allows custom Betting Logic via ink.  
 We created a Custom Betting Logic and built a frontend on top of it.
 
 ### Track - ink! Smart Contracts
 
-Problem:
-Sportbetting is huge.
-Centralised Entities are the current leaders.
-Sportsbetting has no huge social component to it.
-Fantasy football has a social component to it.
+**Problem:**  
+Sportbetting is huge.  
+Centralised Entities are the current leaders.  
+Sportsbetting has no huge social component to it.  
+Fantasy football has a social component to it.  
 Sportsgeist merges these Problem into a solution.
 
-Solution:
-A is a social competition sports betting application called Sportsgeist.
-Start Small. Swipe PM is a MVP of Sportgeist.
+**Solution:**  
+A is a social competition sports betting application called Sportsgeist.  
+Start Small and check the complication and possibilties.  
+Swipe PM is a MVP of Sportgeist.
 
 ### Challenge - Zeitgeist
 
-Elaboration:
-Sportsgeist and Zeitgeist are hanging closely together.
-The initial Idea was use chain extenstion to call `extrinsics::predictionMarkets::createMarket` in our contract.
-We communicated with Zeitgeist Team to make it happen, but the current state of art doesn't allow it.
-It will follow soon. A degraded test implentation happend thruh `callRuntime`.
+The initial Idea was use chain extenstion to call `extrinsics::predictionMarkets::createMarket` in our contract.  
+We communicated with Zeitgeist Team to make it happen.  
+We encountered issues and couldn't solve it.  
+Its still in the pipeline to make one successfull chainextension call.
 
 ### Future Plans
 
@@ -85,8 +85,24 @@ This phased approach will allow us to fine-tune our offerings in response to use
 
 ### Tech Stack
 
-| Backend                                                  | Frontend                                                                              |
-| :------------------------------------------------------- | :------------------------------------------------------------------------------------ |
-| **Rust**, ink!, cargo-contract, substrate-contracts-node | **Typescript**, Vue, UnoCSS, polkadot/api, polkadot/contract, polkadot/extension-dapp |
+| Backend        | Frontend                                  |
+| :------------- | :---------------------------------------- |
+| **Rust**, ink! | **Typescript**, Vue, UnoCSS, polkadot/api |
+
+### What happend?
+
+- [x] Chunk Sportsgeist Idea down to SwipePM
+- [x] Create a Technical Design Sheet to chunk it in scope
+- [x] Create Figma Design to scratch it out
+- [x] Create ink contract.
+- [x] Create Frontend
+- [x] Connect Frontend with Contract.
+- [x] Reevaluate
+- [x] Create Figma Prototype for Sportsduell (~advanced SwipePM)
+- [x] Improve ink Contract with documentation and added logic
+- [x] Improve Frontend
+- [x] Create DockerImage for one command setup
+- [x] Make it nicey
+- [x] Organise Trip to Seoul
 
 </details>
